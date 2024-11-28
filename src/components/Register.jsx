@@ -20,8 +20,12 @@ export default function Register() {
           <input type="password" placeholder="" />
         </div>
         <div>
-          <button>Giriş Yap</button>
-          <button>Kayıt Ol</button>
+          <Link to="/login" element={<Login />}>
+            Giriş Yap
+          </Link>
+          <Link to="/register" element={<Register />}>
+            Kayıt Ol
+          </Link>
         </div>
       </form>
     </div>
