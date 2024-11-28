@@ -1,0 +1,16 @@
+.login-component {
+  margin-top: 75px;
+  max-width: 500px;
+}
+
+h2 {
+  display: block;
+  text-align: center;
+}
+
+.form {
+  display: grid;
+  grid-row: 1fr 1fr 1fr;
+  grid-gap: 10px;
+  justify-items: center;
+}
