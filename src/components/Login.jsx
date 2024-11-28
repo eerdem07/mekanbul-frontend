@@ -1,4 +1,6 @@
 import "./Login.css";
+import Register from "./Register";
+import { Link } from "react-router-dom";
 
 export default function Login() {
   const onSubmit = () => {};

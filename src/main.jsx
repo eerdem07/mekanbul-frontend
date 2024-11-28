@@ -1,5 +1,4 @@
 import "./App.css";
-import React from "react";
 import ReactDOM from "react-dom/client";
 import Template from "./components/Template";
 import Home from "./components/Home";
@@ -29,8 +28,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="venue/:id/comment/new" element={<AddComment />} />
           <Route path="about" element={<About />} />
           <Route path="*" element={<PageNotFound />} />
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Route>
       </Routes>
     </BrowserRouter>
