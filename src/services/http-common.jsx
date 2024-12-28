@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const apiBaseURL =
-  "https://mekan-bul-backend-arliiiuow-jacobss7s-projects.vercel.app";
+  "https://mekan-bul-backend-m4qcnal8d-jacobss7s-projects.vercel.app";
 
 export default axios.create({
   baseURL: apiBaseURL + "/api",
