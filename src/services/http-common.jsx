@@ -7,6 +7,6 @@ export default axios.create({
   baseURL: apiBaseURL + "/api",
   headers: {
     Accept: "application/json",
-    "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+    "Content-Type": "application/json",
   },
 });
