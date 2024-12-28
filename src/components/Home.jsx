@@ -2,7 +2,8 @@ import InputWithLabel from "./InputWithLabel";
 import VenueList from "./VenueList";
 import Header from "./Header";
 import VenueDataService from "../services/VenueDataService";
-import { useEffect, useState, useSelector, useDispatch } from "react";
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 const Home = () => {
   const dispatch = useDispatch();
