@@ -17,13 +17,12 @@ const Home = () => {
 
   useEffect(() => {
     if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition;
-      (position) => {
+      navigator.geolocation.getCurrentPosition((position) => {
         setCoordiante({
           lat: position.coords.latitude,
           long: position.coords.longitude,
         });
-      };
+      });
     }
   }, []);
 
