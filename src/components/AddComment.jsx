@@ -1,10 +1,42 @@
 import Header from "./Header";
 import { useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import Modal from "./Modal";
 function AddComment() {
-  let location = useLocation();
-  const onSubmit = (evt) => {
-    evt.preventDefault();
+  const { id } = useParams();
+  const { showModal, setShowModal } = useState(false);
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const navigate = navigate();
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    const { author, text, rating } = e.target.elements;
+
+    if (author.value && text.value && rating.value) {
+      const newComment = {
+        author: author.value,
+        text: text.value,
+        rating: rating.value,
+      };
+
+      VenueDataService.addComment(id, newComment)
+        .then((response) => {
+          dispatch({ type: "ADD_COMMENT_SUCCESS" });
+          setShowModal(true);
+        })
+        .catch(() => {
+          dispatch({ type: "ADD_COMMENT_FAILURE" });
+        });
+    }
   };
+
+  const handleModalClose = () => {
+    setShowModal(false);
+    navigate(`/venue/${id}`);
+  };
+
   return (
     <>
       <Header headerText={location.state.name} motto=" mekanına yorum yap" />
@@ -13,7 +45,7 @@ function AddComment() {
           <form
             className="form-horizontal"
             id="yorumEkle"
-            onSubmit={(evt) => onSubmit(evt)}
+            onSubmit={(e) => onSubmit(e)}
           >
             <div className="form-group">
               <label className="col-xs-10 col-sm-2 control-label">Puan:</label>
@@ -45,6 +77,12 @@ function AddComment() {
           </form>
         </div>
       </div>
+      <Modal
+        show={showModal}
+        onClose={handleModalClose}
+        title="Tebrikler!"
+        message="Yorumunuz yayınlandı!"
+      />
     </>
   );
 }

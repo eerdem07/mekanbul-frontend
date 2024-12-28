@@ -1,19 +1,49 @@
 import InputWithLabel from "./InputWithLabel";
 import VenueList from "./VenueList";
 import Header from "./Header";
-import React from "react";
+import VenueDataService from "../services/VenueDataService";
+import { useEffect, useState, useSelector, useDispatch } from "react";
+
 const Home = () => {
-   //Şimdilik veri statik. Backend bitince Rest API'den gelecek.
-  const venues = [
-    {
-      _id: 1,
-      name: "Bilgisayar Mühendisliği",
-      rating: 5,
-      distance: 1,
-      address: "SDÜ",
-      foodanddrink: ["Web", "Yazılım", "ASY"],
-    },
-  ];
+  const dispatch = useDispatch();
+  const venues = useSelector((state) => state.data);
+  const isLoading = useSelector((state) => state.isLoading);
+  const isError = useSelector((state) => state.isError);
+  const isSuccess = useSelector((state) => state.isSuccess);
+
+  const [coordinate, setCoordiante] = useState({ lat: 1, long: 1 });
+  const [query, setQuery] = useState("");
+
+  useEffect(() => {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition;
+      (position) => {
+        setCoordiante({
+          lat: position.coords.latitude,
+          long: position.coords.longitude,
+        });
+      };
+    }
+  }, []);
+
+  useEffect(() => {
+    dispatch({ type: "FETCH_INIT" });
+    VenueDataService.nearbyVenues(coordinate.lat, coordinate.long)
+      .then((response) => {
+        dispatch({ type: "FETCH_SUCCESS", payload: response.data });
+      })
+      .catch(() => {
+        dispatch({ type: "FETCH_FAILURE" });
+      });
+  }, [coordinate.lat, coordinate.long]);
+
+  const filteredVenues = Array.isArray(venues)
+    ? venues.filter((venue) => {
+        venue.name.toLowerCase().includes(query.toLowerCase()) |
+          venue.address.toLowerCase().includes(query.toLowerCase());
+      })
+    : [];
+
   return (
     <div>
       <Header
@@ -25,12 +55,28 @@ const Home = () => {
         label="Mekan Ara:"
         typ="text"
         isFocused
-        onInputChange={() => null}
-        value={" "}
+        onInputChange={(e) => {
+          setQuery(e.target.value);
+        }}
+        value={query}
       />
       <hr />
       <div className="row">
-        <VenueList venues={venues} />
+        {isError && (
+          <p>
+            <strong>Bir şeyler ters gitti!</strong>
+          </p>
+        )}
+        {isLoading && (
+          <p>
+            <strong>Yükleniyor...</strong>
+          </p>
+        )}
+        {isSuccess && (
+          <div className="row">
+            <VenueList venues={filteredVenues} />
+          </div>
+        )}
       </div>
     </div>
   );

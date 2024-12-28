@@ -1,12 +1,11 @@
-import Venue from "./Venue";;
+import Venue from "./Venue";
 import React from "react";
-const VenueList = ({ venues}) => {
+const VenueList = ({ venues }) => {
   return (
     <div>
-      {venues? (venues.map((venue, index) => (
-        <Venue key={index} venue={venue} />
-      ))):("")
-    }
+      {venues
+        ? venues.map((venue, index) => <Venue key={index} venue={venue} />)
+        : ""}
     </div>
   );
 };

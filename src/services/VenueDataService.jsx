@@ -15,20 +15,20 @@ class VenueDataService {
     return http.get(`venues/${id}`);
   }
 
-  addVenue(data,token) {
-    return http.post("/venues", data,{
+  addVenue(data, token) {
+    return http.post("/venues", data, {
       headers: { Authorization: `Bearer ${token}` },
     });
   }
 
-  updateVenue(id, data,token) {
-    return http.put(`/venues/${id}`, data,{
+  updateVenue(id, data, token) {
+    return http.put(`/venues/${id}`, data, {
       headers: { Authorization: `Bearer ${token}` },
     });
   }
 
-  removeVenue(id,token) {
-    return http.delete(`/venues/${id}`,{
+  removeVenue(id, token) {
+    return http.delete(`/venues/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
   }
@@ -41,15 +41,15 @@ class VenueDataService {
     return http.post("/signup", data);
   }
   deleteAllVenues(token) {
-    return http.delete("/venues",{
+    return http.delete("/venues", {
       headers: { Authorization: `Bearer ${token}` },
     });
   }
   getComment(venueID, commentID) {
     return http.get(`/venues/${venueID}/comments/${commentID}`);
   }
-  updateComment(venueID, commentID, data,token) {
-    return http.put(`/venues/${venueID}/comments/${commentID}`, data,{
+  updateComment(venueID, commentID, data, token) {
+    return http.put(`/venues/${venueID}/comments/${commentID}`, data, {
       headers: { Authorization: `Bearer ${token}` },
     });
   }
@@ -58,8 +58,8 @@ class VenueDataService {
       headers: { Authorization: `Bearer ${token}` },
     });
   }
-  removeComment(venueID, commentID,token) {
-    return http.delete(`/venues/${venueID}/comments/${commentID}`,{
+  removeComment(venueID, commentID, token) {
+    return http.delete(`/venues/${venueID}/comments/${commentID}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
   }
